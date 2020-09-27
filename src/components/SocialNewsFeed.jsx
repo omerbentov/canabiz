@@ -28,7 +28,14 @@ class SocialNewsFeed extends React.Component {
     }
 
     return (
-      <div>
+      <div
+        style={{
+          width: "70%",
+          margin: "auto",
+          marginTop: 10,
+          marginBottom: 20,
+        }}
+      >
         <AddComment addComment={this.AddComment} {...this.props} />
         {this.state.comments.map((comment, index) => (
           <MDBCardBody key={index}>

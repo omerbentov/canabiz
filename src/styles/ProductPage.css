@@ -1,9 +1,6 @@
 #productpage {
-  background-image: url("https://i.imgur.com/2Pkiq2i.jpg");
-  background-position: top;
-  background-repeat: repeat;
-  background-size: auto;
-  width: 50%;
+  background-color: #c8e6c9;
+  width: 100%;
   margin: auto;
 }
 

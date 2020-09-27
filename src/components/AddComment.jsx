@@ -97,73 +97,82 @@ class AddComment extends React.Component {
   render() {
     return (
       <MDBCard className="mt-5">
-        <h1 className=" position-relative text-center black-text">
-          הוסף תגובה
-        </h1>
-        <MDBRow className="ml-3">
-          <MDBInput
-            background
-            label="כותרת"
-            type="text"
-            ref={this.title}
-            name="title"
-            value={this.state.comment.title}
-            onChange={this.handleTextChange}
-          ></MDBInput>
-        </MDBRow>
-        <MDBRow>
-          <MDBInput
-            background
-            label="תגובה"
-            size="lg"
-            type="textarea"
-            ref={this.title}
-            name="message"
-            value={this.state.comment.message}
-            onChange={this.handleTextChange}
-          ></MDBInput>
-        </MDBRow>
-        {this.props.commentsCategories.map((category, index) => (
-          <MDBRow key={index}>
-            <p>{category}</p>
-            <MDBRating
-              key={index * 100}
-              fillColors={[
-                "red-text",
-                "orange-text",
-                "yellow-text",
-                "lime-text",
-                "light-green-text",
-              ]}
-              data={[
-                {
-                  tooltip: category,
-                },
-                {
-                  tooltip: category,
-                },
-                {
-                  tooltip: category,
-                },
-                {
-                  tooltip: category,
-                },
-                {
-                  tooltip: category,
-                },
-              ]}
-              getValue={this.handleRateChange.bind(category)}
-              name={category}
-            />
+        <div
+          style={{
+            marginRight: 30,
+            marginTop: 10,
+            marginBottom: 10,
+          }}
+        >
+          <h1 className=" position-relative text-center black-text">
+            הוסף תגובה
+          </h1>
+          {/* <MDBRow className="ml-3">
+            <MDBInput
+              size="lg"
+              background
+              label="כותרת"
+              type="text"
+              ref={this.title}
+              name="title"
+              value={this.state.comment.title}
+              onChange={this.handleTextChange}
+            ></MDBInput>
+          </MDBRow> */}
+          <MDBRow>
+            <MDBInput
+              background
+              label="תגובה"
+              size="lg"
+              type="textarea"
+              ref={this.title}
+              name="message"
+              value={this.state.comment.message}
+              onChange={this.handleTextChange}
+            ></MDBInput>
           </MDBRow>
-        ))}
-        <MDBRow>
-          <div className="text-center">
-            <MDBBtn className="text-center" onClick={this.handleSubmit}>
-              הגב
-            </MDBBtn>
-          </div>
-        </MDBRow>
+          {this.props.commentsCategories.map((category, index) => (
+            <MDBRow key={index}>
+              <p>{category}</p>
+              <MDBRating
+                key={index * 100}
+                fillColors={[
+                  "red-text",
+                  "orange-text",
+                  "yellow-text",
+                  "lime-text",
+                  "light-green-text",
+                ]}
+                data={[
+                  {
+                    tooltip: category,
+                  },
+                  {
+                    tooltip: category,
+                  },
+                  {
+                    tooltip: category,
+                  },
+                  {
+                    tooltip: category,
+                  },
+                  {
+                    tooltip: category,
+                  },
+                ]}
+                getValue={this.handleRateChange.bind(category)}
+                name={category}
+              />
+            </MDBRow>
+          ))}
+          <MDBRow>
+            <div className="text-center">
+              <MDBBtn className="text-center" onClick={this.handleSubmit}>
+                הגב
+              </MDBBtn>
+            </div>
+          </MDBRow>
+        </div>
       </MDBCard>
     );
   }

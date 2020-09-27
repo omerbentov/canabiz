@@ -12,7 +12,8 @@ import {
   MDBRating,
 } from "mdbreact";
 import axios from "axios";
-import _ from "lodash";
+import _, { round } from "lodash";
+import ProgressBar from "react-customizable-progressbar";
 
 class StatisticsForProducts extends Component {
   state = {
@@ -55,59 +56,81 @@ class StatisticsForProducts extends Component {
     this.setState({ statistics });
   };
 
+  getProgressBarColor = (ratio) => {
+    console.log(ratio);
+    switch (Math.floor(ratio)) {
+      case 0:
+        return "#c8e6c9";
+      case 0:
+        return "#81c784";
+      case 2:
+        return "green";
+      case 3:
+        return "#388e3c";
+      case 4:
+        return "#1b5e20";
+    }
+  };
+
   render() {
     if (this.props.product_id !== undefined && this.state.fetch) {
       this.getStatistics(this.props.product_id);
     }
 
     return (
-      <div>
+      <div
+        style={{
+          width: "70%",
+          margin: "auto",
+          marginTop: 10,
+          marginBottom: 20,
+        }}
+      >
         <MDBCard>
-          <MDBRow>
-            <MDBCardTitle>סטטיסטיקות</MDBCardTitle>
-          </MDBRow>
-          {this.state.statistics
-            .sort((a, b) => a.value >= b.value)
-            .map((rate, index) => (
-              <div className="ml-5" key={index}>
-                <MDBRow>
-                  <MDBCardTitle>{rate.title}</MDBCardTitle>
-                  <MDBRating
-                    fillColors={[
-                      "red-text",
-                      "orange-text",
-                      "yellow-text",
-                      "lime-text",
-                      "light-green-text",
-                    ]}
-                    data={[
-                      {
-                        tooltip: "Bad",
-                        choosed: rate.value >= 1 && rate.value < 2,
-                      },
-                      {
-                        tooltip: "Poor",
-                        choosed: rate.value >= 2 && rate.value < 3,
-                      },
-                      {
-                        tooltip: "Ok",
-                        choosed: rate.value >= 3 && rate.value < 4,
-                      },
-                      {
-                        tooltip: "Nice",
-                        choosed: rate.value >= 4 && rate.value < 5,
-                      },
-                      {
-                        tooltip: "Excellent",
-                        choosed: rate.value == 5,
-                      },
-                    ]}
-                  />
-                  <MDBCardTitle>ממוצע{rate.value}</MDBCardTitle>
-                  <MDBCardTitle>מס מדרגים :{rate.counter}</MDBCardTitle>
-                </MDBRow>
-              </div>
-            ))}
+          <div
+            style={{
+              marginRight: 30,
+              marginTop: 10,
+              marginBottom: 10,
+            }}
+          >
+            <MDBRow>
+              <h1 className=" position-relative text-center black-text">
+                סטטיסטיקות
+              </h1>
+            </MDBRow>
+            <MDBRow>
+              {this.state.statistics
+                .sort((a, b) => a.value >= b.value)
+                .map((rate, index) => (
+                  <div className="ml-5" key={index}>
+                    <MDBCol>
+                      <MDBRow center>
+                        <h3>
+                          {rate.title} :{round(rate.value / 5, 2)}%{" "}
+                        </h3>
+                      </MDBRow>
+                      <MDBRow center>
+                        <h4>מס מדרגים : {this.state.statistics.length}</h4>
+                      </MDBRow>
+                      <ProgressBar
+                        radius={50}
+                        progress={rate.value}
+                        steps={5}
+                        strokeWidth={4}
+                        strokeColor={this.getProgressBarColor(rate.value)}
+                        trackStrokeWidth={4}
+                        pointerRadius={8}
+                        pointerStrokeWidth={5}
+                        pointerStrokeColor="black"
+                        initialAnimationDelay={500}
+                        initialAnimation={true}
+                      ></ProgressBar>
+                    </MDBCol>
+                  </div>
+                ))}
+            </MDBRow>
+          </div>
         </MDBCard>
       </div>
     );
