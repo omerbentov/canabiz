@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import axios from "axios";
 import _ from "lodash";
 import {
@@ -14,25 +14,34 @@ import {
   MDBIcon,
 } from "mdbreact";
 import "../styles/ImagesWithCards.css";
+import MultiSelect from "react-multiple-select-dropdown-lite";
+import "react-multiple-select-dropdown-lite/dist/index.css";
 
 class CardExample extends Component {
   state = {
     allProducts: [],
     products: [],
-    allCompenies: [],
-    compenies: [],
     allComments: [],
+    allCompenies: [],
 
-    initQuery: {
-      ish: ["indica", "sativa", "hybrid"],
-      thc: ["15", "20"],
-    },
     query: {
-      ishFirstClick: true,
-      thcFirstClick: true,
-      companyFirstClick: true,
       ish: ["indica", "sativa", "hybrid"],
-      thc: ["15", "20"],
+      thc: ["20", "15", "10"],
+      companies: [],
+    },
+
+    options: {
+      ish: [
+        { label: "אינדיקה", value: "indica" },
+        { label: "סאטיבה", value: "sativa" },
+        { label: "הייבריד", value: "hybrid" },
+      ],
+      thc: [
+        { label: "T/20", value: "20" },
+        { label: "T/15", value: "15" },
+        { label: "T/10", value: "10" },
+      ],
+      companies: [],
     },
   };
 
@@ -44,214 +53,78 @@ class CardExample extends Component {
     });
 
     const allCompenies = await axios.get("http://localhost:3000/compenies");
-    let companyNames = [];
     allCompenies.data.forEach((company) => {
-      companyNames.push(company.name);
-    });
+      this.state.options.companies.push({
+        label: company.name,
+        value: company.name,
+      });
 
-    await this.setState({
-      allCompenies: companyNames,
-      compenies: companyNames,
+      this.state.query.companies.push(company.name);
+      this.state.allCompenies.push(company.name);
     });
   }
 
-  ish_btnClicked = async (e) => {
-    console.log(e.currentTarget);
-    if (this.state.query.ishFirstClick) {
-      this.state.products = this.state.allProducts;
-      this.state.query.ish = [];
-      this.state.query.ishFirstClick = false;
+  ish_btnClicked = async (val) => {
+    if (!val) {
+      this.state.query.ish = ["indica", "sativa", "hybrid"];
+    } else {
+      this.state.query.ish = val.split(",");
     }
-
-    this.state.query.ish.indexOf(e.currentTarget.name) === -1
-      ? this.state.query.ish.push(e.currentTarget.name)
-      : _.remove(this.state.query.ish, (item) => {
-          return item == e.currentTarget.name;
-        });
-
-    if (this.state.query.ish.length == 0) {
-      this.state.query.ish = this.state.initQuery.ish;
-      this.state.query.ishFirstClick = true;
-    }
-
-    console.log(this.state.query.ish);
     this.generateProductList();
   };
 
-  thc_btnClicked = async (e) => {
-    if (this.state.query.thcFirstClick) {
-      this.state.products = this.state.allProducts;
-      this.state.query.thc = [];
-      this.state.query.thcFirstClick = false;
+  thc_btnClicked = async (val) => {
+    if (!val) {
+      this.state.query.thc = ["20", "15", "10"];
+    } else {
+      this.state.query.thc = val.split(",");
     }
-
-    this.state.query.thc.indexOf(e.currentTarget.name) === -1
-      ? this.state.query.thc.push(e.currentTarget.name)
-      : _.remove(this.state.query.thc, (item) => {
-          return item == e.currentTarget.name;
-        });
-
-    if (this.state.query.thc.length == 0) {
-      this.state.query.thc = this.state.initQuery.thc;
-      this.state.query.thcFirstClick = true;
-    }
-
-    console.log(this.state.query.thc);
     this.generateProductList();
   };
 
-  company_btnClicked = async (e) => {
-    if (this.state.query.companyFirstClick) {
-      // this.state.compenies = this.state.allCompenies;
-      this.state.compenies = [];
-      this.state.query.companyFirstClick = false;
+  company_btnClicked = async (val) => {
+    if (!val) {
+      this.state.query.companies = this.state.allCompenies;
+    } else {
+      this.state.query.companies = val.split(",");
     }
-
-    this.state.compenies.indexOf(e.currentTarget.name) === -1
-      ? this.state.compenies.push(e.currentTarget.name)
-      : _.remove(this.state.compenies, (item) => {
-          return item == e.currentTarget.name;
-        });
-
-    if (this.state.compenies.length == 0) {
-      this.state.compenies = this.state.allCompenies;
-      this.state.query.companyFirstClick = true;
-    }
-
-    console.log(this.state.compenies);
     this.generateProductList();
   };
 
   generateProductList = () => {
-    var productsAfterQuery = this.state.allProducts.filter(
-      (product) =>
-        this.state.query.ish.includes(product.ish) &&
-        this.state.query.thc.includes(product.thc) &&
-        this.state.compenies.includes(product.company)
-    );
-
-    this.setState({ products: productsAfterQuery });
-  };
-
-  resetState = async () => {
-    let tempQuery = this.state.query;
-    tempQuery.ishFirstClick = true;
-    tempQuery.thcFirstClick = true;
-    tempQuery.companyFirstClick = true;
-    tempQuery.ish = this.state.initQuery.ish;
-    tempQuery.thc = this.state.initQuery.thc;
-    await this.setState({
-      compenies: this.state.allCompenies,
-      query: tempQuery,
+    var productsAfterQuery = this.state.allProducts.filter((product) => {
+      return (
+        _.includes(this.state.query.ish, product.ish) &&
+        _.includes(this.state.query.thc, product.thc) &&
+        _.includes(this.state.query.companies, product.company)
+      );
     });
 
-    this.generateProductList();
+    this.state.products = productsAfterQuery;
   };
 
   render() {
     return (
       <div id="images_with_cards">
-        <div id="filter">
-          <MDBCard>
-            <div id="header">
-              <h1 className="black-text">סנן מוצרים</h1>
-            </div>
-            <div id="allFiltersButtons">
-              <MDBRow>
-                <div id="filterCard1">
-                  <MDBCard color="green" className="m-3">
-                    <MDBBtn
-                      innerRef={this.buttonRef}
-                      color="white"
-                      className="btn-sm"
-                      name="sativa"
-                      onClick={this.ish_btnClicked}
-                    >
-                      סאטיבה
-                    </MDBBtn>
-                    <MDBBtn
-                      color="white"
-                      className="btn-sm"
-                      name="indica"
-                      onClick={this.ish_btnClicked}
-                    >
-                      אינדיקה
-                    </MDBBtn>
-
-                    <MDBBtn
-                      color="white"
-                      className="btn-sm"
-                      name="hybrid"
-                      onClick={this.ish_btnClicked}
-                    >
-                      הייבריד
-                    </MDBBtn>
-                  </MDBCard>
-                </div>
-                <div id="filterCard2">
-                  <MDBCard color="green" className="m-3">
-                    <MDBBtn
-                      color="white"
-                      className="btn-sm"
-                      name="20"
-                      onClick={this.thc_btnClicked}
-                    >
-                      THC - 20
-                    </MDBBtn>
-                    <MDBBtn
-                      color="white"
-                      className="btn-sm"
-                      name="15"
-                      onClick={this.thc_btnClicked}
-                    >
-                      THC - 15
-                    </MDBBtn>
-                    <MDBBtn
-                      color="white"
-                      className="btn-sm"
-                      name="10"
-                      onClick={this.thc_btnClicked}
-                    >
-                      THC - 10
-                    </MDBBtn>
-                  </MDBCard>
-                </div>
-                <div id="filterCard3">
-                  <MDBCard color="green" className="m-3">
-                    {this.state.allCompenies.map((company, index) => (
-                      <MDBBtn
-                        id={index}
-                        color="white"
-                        className="btn-sm"
-                        name={company}
-                        onClick={this.company_btnClicked}
-                      >
-                        {company}
-                      </MDBBtn>
-                    ))}
-                  </MDBCard>
-                </div>
-                <div id="filterCard">
-                  <MDBCard color="red" className="m-3">
-                    <MDBBtn
-                      color="white"
-                      className="btn-sm"
-                      onClick={this.resetState}
-                    >
-                      איפוס
-                    </MDBBtn>
-                  </MDBCard>
-                </div>
-              </MDBRow>
-            </div>
-          </MDBCard>
+        <div style={{ margin: "auto" }}>
+          <MultiSelect
+            onChange={this.ish_btnClicked}
+            options={this.state.options.ish}
+          />
+          <MultiSelect
+            onChange={this.thc_btnClicked}
+            options={this.state.options.thc}
+          />
+          <MultiSelect
+            onChange={this.company_btnClicked}
+            options={this.state.options.companies}
+          />
         </div>
-
         <div id="products">
           <MDBTable>
             <MDBRow>
               {this.state.products.map((product, index) => (
-                <MDBCol>
+                <MDBCol key={index}>
                   <div id="singleCard">
                     <MDBCard id={index}>
                       <MDBCardImage
