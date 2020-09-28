@@ -10,37 +10,10 @@ import {
   MDBCard,
 } from "mdbreact";
 import "../styles/HomePage.css";
+import MultiCarouselPage from "./../components/MultiCarouselPage ";
 
 class AppPage extends React.Component {
-  state = {
-    collapsed: false,
-  };
-
-  handleTogglerClick = () => {
-    const { collapsed } = this.state;
-    this.setState({
-      collapsed: !collapsed,
-    });
-  };
-
-  componentDidMount() {
-    document.querySelector("nav").style.height = "65px";
-  }
-
-  componentWillUnmount() {
-    document.querySelector("nav").style.height = "auto";
-  }
-
   render() {
-    const { collapsed } = this.state;
-
-    const overlay = (
-      <div
-        id="sidenav-overlay"
-        style={{ backgroundColor: "transparent" }}
-        onClick={this.handleTogglerClick}
-      />
-    );
     return (
       <body>
         <div id="first">
@@ -62,15 +35,6 @@ class AppPage extends React.Component {
               </MDBBtn>
             </MDBAnimation>
           </div>
-          {/* <div id="doctor">
-            <MDBAnimation type="lightSpeedIn" delay=".4s">
-              <img
-                src="https://upload.wikimedia.org/wikipedia/commons/6/67/Medical_doctor.png"
-                alt=""
-                className="img-fluid"
-              />
-            </MDBAnimation>
-          </div> */}
         </div>
         <div id="second">
           <div id="whoRwe">
@@ -81,7 +45,15 @@ class AppPage extends React.Component {
             </h2>
           </div>
         </div>
-        <div id="third"></div>
+        <div dir="ltr" id="third">
+          <div style={{ margin: "auto", width: "20%" }}>
+            <h1> הנצפים ביותר</h1>
+          </div>
+          <div id="carusel">
+            <MultiCarouselPage />
+          </div>
+        </div>
+        <div id="fourth"></div>
       </body>
     );
   }

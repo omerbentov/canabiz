@@ -29,9 +29,9 @@ class NavbarPage extends Component {
     return (
       <Router>
         <div id="backgroung">
-          <MDBNavbar color="black" dark right expand="xl">
+          <MDBNavbar color="white" light right expand="xl">
             <MDBNavbarBrand href="/">
-              <strong className="white-text">קנאביז</strong>
+              <strong className="black-text">קנאביז</strong>
             </MDBNavbarBrand>
             <MDBNavbarToggler onClick={this.toggleCollapse} />
             <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
@@ -40,47 +40,6 @@ class NavbarPage extends Component {
                   <MDBNavLink active to="./products">
                     מוצרים
                   </MDBNavLink>
-                </MDBNavItem>
-                <MDBNavItem>
-                  <MDBDropdown>
-                    <MDBDropdownToggle nav caret>
-                      <div className="d-none d-md-inline">Dropdown</div>
-                    </MDBDropdownToggle>
-                    <MDBDropdownMenu className="dropdown-default">
-                      <MDBDropdownItem href="#!">Action</MDBDropdownItem>
-                      <MDBDropdownItem href="#!">
-                        Another Action
-                      </MDBDropdownItem>
-                      <MDBDropdownItem href="#!">
-                        Something else here
-                      </MDBDropdownItem>
-                      <MDBDropdownItem href="#!">
-                        Something else here
-                      </MDBDropdownItem>
-                    </MDBDropdownMenu>
-                  </MDBDropdown>
-                </MDBNavItem>
-              </MDBNavbarNav>
-              <MDBNavbarNav left>
-                <MDBNavItem>
-                  <MDBNavLink className="waves-effect waves-light" to="#!">
-                    <MDBIcon fab icon="twitter" />
-                  </MDBNavLink>
-                </MDBNavItem>
-                <MDBNavItem>
-                  <MDBNavLink className="waves-effect waves-light" to="#!">
-                    <MDBIcon fab icon="google-plus-g" />
-                  </MDBNavLink>
-                </MDBNavItem>
-                <MDBNavItem>
-                  <MDBDropdown>
-                    <MDBDropdownToggle nav caret>
-                      <MDBIcon icon="user" />
-                    </MDBDropdownToggle>
-                    <MDBDropdownMenu className="dropdown-default">
-                      <MDBDropdownItem href="/signin">כניסה</MDBDropdownItem>
-                    </MDBDropdownMenu>
-                  </MDBDropdown>
                 </MDBNavItem>
               </MDBNavbarNav>
             </MDBCollapse>

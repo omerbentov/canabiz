@@ -36,37 +36,37 @@ class AddComment extends React.Component {
     e.preventDefault();
 
     let errorMessage;
-    if (this.state.comment.title == "" || this.state.comment.message == "") {
+    if (this.state.comment.message == "") {
       alert("אנא הזן כותרת ותגובה  :) ");
-    }
-
-    const { addComment } = this.props;
-    addComment({
-      _id: null,
-      product_id: this.props.product_id,
-      user_id: 2,
-      title: this.state.comment.title,
-      message: this.state.comment.message,
-      score: this.state.score,
-      date: "Added just now...",
-    });
-
-    try {
-      const response = await axios.post("http://localhost:3000/comments", {
+    } else {
+      const { addComment } = this.props;
+      addComment({
+        _id: null,
         product_id: this.props.product_id,
         user_id: 2,
         title: this.state.comment.title,
         message: this.state.comment.message,
         score: this.state.score,
+        date: "Added just now...",
       });
 
-      // reset
-      this.state.comment.title = "";
-      this.state.comment.message = "";
-      this.state.score = [];
-      alert(response.data);
-    } catch (e) {
-      alert(e);
+      try {
+        const response = await axios.post("http://localhost:3000/comments", {
+          product_id: this.props.product_id,
+          user_id: 2,
+          title: this.state.comment.title,
+          message: this.state.comment.message,
+          score: this.state.score,
+        });
+
+        // reset
+        this.state.comment.title = "";
+        this.state.comment.message = "";
+        this.state.score = [];
+        alert(response.data);
+      } catch (e) {
+        alert(e);
+      }
     }
   };
 
@@ -96,18 +96,19 @@ class AddComment extends React.Component {
 
   render() {
     return (
-      <MDBCard className="mt-5">
-        <div
-          style={{
-            marginRight: 30,
-            marginTop: 10,
-            marginBottom: 10,
-          }}
-        >
-          <h1 className=" position-relative text-center black-text">
-            הוסף תגובה
-          </h1>
-          {/* <MDBRow className="ml-3">
+      <div style={{ maxWidth: "40%", maxHeight: "30%", paddingRight: 5 }}>
+        <MDBCard className="mt-5">
+          <div
+            style={{
+              marginRight: 30,
+              marginTop: 10,
+              marginBottom: 10,
+            }}
+          >
+            <h4 className=" position-relative text-center black-text">
+              הוסף תגובה
+            </h4>
+            {/* <MDBRow className="ml-3">
             <MDBInput
               size="lg"
               background
@@ -119,61 +120,68 @@ class AddComment extends React.Component {
               onChange={this.handleTextChange}
             ></MDBInput>
           </MDBRow> */}
-          <MDBRow>
-            <MDBInput
-              background
-              label="תגובה"
-              size="lg"
-              type="textarea"
-              ref={this.title}
-              name="message"
-              value={this.state.comment.message}
-              onChange={this.handleTextChange}
-            ></MDBInput>
-          </MDBRow>
-          {this.props.commentsCategories.map((category, index) => (
-            <MDBRow key={index}>
-              <p>{category}</p>
-              <MDBRating
-                key={index * 100}
-                fillColors={[
-                  "red-text",
-                  "orange-text",
-                  "yellow-text",
-                  "lime-text",
-                  "light-green-text",
-                ]}
-                data={[
-                  {
-                    tooltip: category,
-                  },
-                  {
-                    tooltip: category,
-                  },
-                  {
-                    tooltip: category,
-                  },
-                  {
-                    tooltip: category,
-                  },
-                  {
-                    tooltip: category,
-                  },
-                ]}
-                getValue={this.handleRateChange.bind(category)}
-                name={category}
-              />
+            <MDBRow>
+              <div style={{ width: "90%" }}>
+                <MDBInput
+                  background
+                  label="תגובה"
+                  type="textarea"
+                  ref={this.title}
+                  name="message"
+                  value={this.state.comment.message}
+                  onChange={this.handleTextChange}
+                ></MDBInput>
+              </div>
             </MDBRow>
-          ))}
-          <MDBRow>
-            <div className="text-center">
-              <MDBBtn className="text-center" onClick={this.handleSubmit}>
-                הגב
-              </MDBBtn>
-            </div>
-          </MDBRow>
-        </div>
-      </MDBCard>
+            {this.props.commentsCategories.map((category, index) => (
+              <MDBRow key={index}>
+                <h6>{category}</h6>
+                <MDBRating
+                  iconSize="1x"
+                  key={index * 100}
+                  fillColors={[
+                    "red-text",
+                    "orange-text",
+                    "yellow-text",
+                    "lime-text",
+                    "light-green-text",
+                  ]}
+                  data={[
+                    {
+                      tooltip: category,
+                    },
+                    {
+                      tooltip: category,
+                    },
+                    {
+                      tooltip: category,
+                    },
+                    {
+                      tooltip: category,
+                    },
+                    {
+                      tooltip: category,
+                    },
+                  ]}
+                  getValue={this.handleRateChange.bind(category)}
+                  name={category}
+                />
+              </MDBRow>
+            ))}
+            <MDBRow>
+              <div className="text-center">
+                <MDBBtn
+                  color="white"
+                  className="text-center"
+                  onClick={this.handleSubmit}
+                >
+                  הגב
+                </MDBBtn>
+              </div>
+            </MDBRow>
+          </div>
+        </MDBCard>
+      </div>
     );
   }
 }

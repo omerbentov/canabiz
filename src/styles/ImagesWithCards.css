@@ -1,16 +1,28 @@
 #images_with_cards {
-  background-image: url("https://i.imgur.com/2Pkiq2i.jpg");
+  /* background-image: url("https://i.imgur.com/2Pkiq2i.jpg");
   background-position: top;
   background-repeat: repeat;
-  background-size: auto;
+  background-size: auto; */
+  background-color: #c8e6c9;
+}
+
+#head {
+  width: 100%;
+  background-color: white;
+  height: fit-content;
+  border: black;
+  border-width: 1px;
 }
 
 #filter {
-  width: 70%;
-  height: 300px;
+  width: fit-content;
+  max-width: 70%;
+  height: fit-content;
   text-align: center;
   margin: auto;
-  margin-bottom: 50px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  /* margin-bottom: 50px; */
 }
 
 #allFiltersButtons {

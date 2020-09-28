@@ -106,19 +106,26 @@ class CardExample extends Component {
   render() {
     return (
       <div id="images_with_cards">
-        <div style={{ margin: "auto" }}>
-          <MultiSelect
-            onChange={this.ish_btnClicked}
-            options={this.state.options.ish}
-          />
-          <MultiSelect
-            onChange={this.thc_btnClicked}
-            options={this.state.options.thc}
-          />
-          <MultiSelect
-            onChange={this.company_btnClicked}
-            options={this.state.options.companies}
-          />
+        <div id="head">
+          <div id="filter">
+            <MDBRow>
+              <MultiSelect
+                placeholder="משפחה"
+                onChange={this.ish_btnClicked}
+                options={this.state.options.ish}
+              />
+              <MultiSelect
+                placeholder="Thc"
+                onChange={this.thc_btnClicked}
+                options={this.state.options.thc}
+              />
+              <MultiSelect
+                placeholder="חברה"
+                onChange={this.company_btnClicked}
+                options={this.state.options.companies}
+              />
+            </MDBRow>
+          </div>
         </div>
         <div id="products">
           <MDBTable>
@@ -143,7 +150,11 @@ class CardExample extends Component {
                         <MDBCardText id="description">
                           {product.productDescription}
                         </MDBCardText>
-                        <MDBBtn id="btn" href={"/product/" + product._id}>
+                        <MDBBtn
+                          color="white"
+                          id="btn"
+                          href={"/product/" + product._id}
+                        >
                           לצפייה
                         </MDBBtn>
                       </MDBCardBody>

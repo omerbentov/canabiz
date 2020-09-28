@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import ImagesWithCards from "../components/ImagesWithCards";
 import axios from "axios";
-import "../styles/ProductsPage.css";
 
 class ProductsPage extends Component {
   state = {
@@ -16,11 +15,7 @@ class ProductsPage extends Component {
 
   render() {
     this.getComments();
-    return (
-      <div id="main">
-        <ImagesWithCards comments={this.state.comments} />
-      </div>
-    );
+    return <ImagesWithCards comments={this.state.comments} />;
   }
 }
 
