@@ -14,14 +14,21 @@ import Coverflow from "react-coverflow";
 class ProductView extends Component {
   state = {};
 
-  fn = function () {
-    /* do your action */
-  };
   render() {
     return (
-      <div dir="ltr">
+      <div dir="ltr" style={{ backgroundColor: "whitesmoke" }}>
+        <div
+          style={{
+            margin: "auto",
+            width: "fit-content",
+            paddingTop: 10,
+            paddingBottom: 10,
+          }}
+        >
+          <h1>{this.props.name}</h1>
+        </div>
         <Coverflow
-          width="960"
+          width="100%"
           height="500"
           displayQuantityOfSide={2}
           navigation={true}

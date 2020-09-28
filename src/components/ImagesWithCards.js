@@ -16,6 +16,7 @@ import {
 import "../styles/ImagesWithCards.css";
 import MultiSelect from "react-multiple-select-dropdown-lite";
 import "react-multiple-select-dropdown-lite/dist/index.css";
+import { Autoplay } from "swiper";
 
 class CardExample extends Component {
   state = {
@@ -107,6 +108,9 @@ class CardExample extends Component {
     return (
       <div id="images_with_cards">
         <div id="head">
+          <div style={{ margin: "auto", width: "fit-content", paddingTop: 20 }}>
+            <h1> סנן מוצרים</h1>
+          </div>
           <div id="filter">
             <MDBRow>
               <MultiSelect
@@ -127,43 +131,45 @@ class CardExample extends Component {
             </MDBRow>
           </div>
         </div>
-        <div id="products">
-          <MDBTable>
-            <MDBRow>
-              {this.state.products.map((product, index) => (
-                <MDBCol key={index}>
-                  <div id="singleCard">
-                    <MDBCard id={index}>
-                      <MDBCardImage
-                        className="img-fluid"
-                        src={product.BoxImg}
-                      />
-                      <MDBCardBody cascade>
-                        <MDBCardTitle>
-                          {product.name} : ({product.company})
-                        </MDBCardTitle>
-                        <MDBCardTitle>
-                          {" "}
-                          {product.ish} T{product.thc}\C
-                          {product.cbd}
-                        </MDBCardTitle>
-                        <MDBCardText id="description">
-                          {product.productDescription}
-                        </MDBCardText>
-                        <MDBBtn
-                          color="white"
-                          id="btn"
-                          href={"/product/" + product._id}
-                        >
-                          לצפייה
-                        </MDBBtn>
-                      </MDBCardBody>
-                    </MDBCard>
-                  </div>
-                </MDBCol>
-              ))}
-            </MDBRow>
-          </MDBTable>
+        <div id="main">
+          <div id="products">
+            <MDBTable>
+              <MDBRow>
+                {this.state.products.map((product, index) => (
+                  <MDBCol key={index}>
+                    <div id="singleCard">
+                      <MDBCard id={index}>
+                        <MDBCardImage
+                          className="img-fluid"
+                          src={product.BoxImg}
+                        />
+                        <MDBCardBody cascade>
+                          <MDBCardTitle>
+                            {product.name} : ({product.company})
+                          </MDBCardTitle>
+                          <MDBCardTitle>
+                            {" "}
+                            {product.ish} T{product.thc}\C
+                            {product.cbd}
+                          </MDBCardTitle>
+                          <MDBCardText id="description">
+                            {product.productDescription}
+                          </MDBCardText>
+                          <MDBBtn
+                            color="white"
+                            id="btn"
+                            href={"/product/" + product._id}
+                          >
+                            לצפייה
+                          </MDBBtn>
+                        </MDBCardBody>
+                      </MDBCard>
+                    </div>
+                  </MDBCol>
+                ))}
+              </MDBRow>
+            </MDBTable>
+          </div>
         </div>
       </div>
     );

@@ -107,7 +107,7 @@ class StatisticsForProducts extends Component {
                     <MDBCol>
                       <MDBRow center>
                         <h3>
-                          {rate.title} :{round(rate.value / 5, 2)}%{" "}
+                          {rate.title} :{round((rate.value / 5) * 100, 2)}%{" "}
                         </h3>
                       </MDBRow>
                       <MDBRow center>

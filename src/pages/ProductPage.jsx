@@ -9,7 +9,28 @@ import StatisticsForProducts from "./../components/StatisticsForProduct";
 class ProductPage extends Component {
   state = {
     product: [],
-    commentsCategories: ["טעם", "ניחוח", "גודל", "מעורר"],
+    commentsCategories: [
+      "מצב רוח",
+      "מרדים",
+      "מעורר",
+      "פוסט טראומה",
+      "שינה",
+      "מעורר",
+      "הלם קרב",
+      "תיאבון",
+      "חרדה",
+      "כאב ראש",
+      "עייפות",
+      "שיעול",
+
+      "טעם",
+      "ניחוח",
+      "גודל",
+
+      "יום",
+      "לילה",
+      "עבודה",
+    ],
   };
 
   async componentDidMount() {

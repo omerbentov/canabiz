@@ -4,12 +4,13 @@
   background-repeat: repeat;
   background-size: auto; */
   /* background-color: #c8e6c9; */
-  background-color: white;
+  background-color: whitesmoke;
 }
 
 #head {
   width: 100%;
-  background-color: white;
+  background-color: whitesmoke;
+  min-height: 300px;
   height: fit-content;
 }
 
@@ -17,24 +18,32 @@
   width: fit-content;
   max-width: 70%;
   height: fit-content;
+  max-height: 100%;
   text-align: center;
   margin: auto;
-  padding-top: 15px;
+  padding-top: 20px;
   padding-bottom: 15px;
+  box-sizing: 2;
+  border-bottom: black;
+}
+
+#main {
+  background-color: rgb(210, 255, 210);
+  width: 100%;
 }
 
 #products {
+  padding-top: 20px;
   width: 70%;
   margin: auto;
 }
 
 #singleCard {
-  width: 80%;
+  width: 100%;
   height: 60%;
   max-width: 350px;
   max-height: fit-content;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin: 10px;
 }
 
 #description {

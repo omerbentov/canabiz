@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import _ from "lodash";
 import {
   MDBBtn,
   MDBContainer,
@@ -37,14 +38,13 @@ class AddComment extends React.Component {
 
     let errorMessage;
     if (this.state.comment.message == "") {
-      alert("אנא הזן כותרת ותגובה  :) ");
+      alert("אנא הזן תגובה  :) ");
     } else {
       const { addComment } = this.props;
       addComment({
         _id: null,
         product_id: this.props.product_id,
         user_id: 2,
-        title: this.state.comment.title,
         message: this.state.comment.message,
         score: this.state.score,
         date: "Added just now...",
@@ -54,7 +54,6 @@ class AddComment extends React.Component {
         const response = await axios.post("http://localhost:3000/comments", {
           product_id: this.props.product_id,
           user_id: 2,
-          title: this.state.comment.title,
           message: this.state.comment.message,
           score: this.state.score,
         });
@@ -96,7 +95,7 @@ class AddComment extends React.Component {
 
   render() {
     return (
-      <div style={{ maxWidth: "40%", maxHeight: "30%", paddingRight: 5 }}>
+      <div style={{ maxWidth: "70%", maxHeight: "30%", paddingRight: 5 }}>
         <MDBCard className="mt-5">
           <div
             style={{
@@ -133,41 +132,49 @@ class AddComment extends React.Component {
                 ></MDBInput>
               </div>
             </MDBRow>
-            {this.props.commentsCategories.map((category, index) => (
-              <MDBRow key={index}>
-                <h6>{category}</h6>
-                <MDBRating
-                  iconSize="1x"
-                  key={index * 100}
-                  fillColors={[
-                    "red-text",
-                    "orange-text",
-                    "yellow-text",
-                    "lime-text",
-                    "light-green-text",
-                  ]}
-                  data={[
-                    {
-                      tooltip: category,
-                    },
-                    {
-                      tooltip: category,
-                    },
-                    {
-                      tooltip: category,
-                    },
-                    {
-                      tooltip: category,
-                    },
-                    {
-                      tooltip: category,
-                    },
-                  ]}
-                  getValue={this.handleRateChange.bind(category)}
-                  name={category}
-                />
-              </MDBRow>
-            ))}
+            <MDBRow>
+              {_.chunk(this.props.commentsCategories, 5).map(
+                (categories, index) => (
+                  <MDBCol size="lg">
+                    {categories.map((category, index) => (
+                      <MDBRow key={index}>
+                        <h6>{category}</h6>
+                        <MDBRating
+                          iconSize="1x"
+                          key={index * 100}
+                          fillColors={[
+                            "red-text",
+                            "orange-text",
+                            "yellow-text",
+                            "lime-text",
+                            "light-green-text",
+                          ]}
+                          data={[
+                            {
+                              tooltip: category,
+                            },
+                            {
+                              tooltip: category,
+                            },
+                            {
+                              tooltip: category,
+                            },
+                            {
+                              tooltip: category,
+                            },
+                            {
+                              tooltip: category,
+                            },
+                          ]}
+                          getValue={this.handleRateChange.bind(category)}
+                          name={category}
+                        />
+                      </MDBRow>
+                    ))}
+                  </MDBCol>
+                )
+              )}
+            </MDBRow>
             <MDBRow>
               <div className="text-center">
                 <MDBBtn
