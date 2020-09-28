@@ -37,9 +37,31 @@ class NavbarPage extends Component {
             <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
               <MDBNavbarNav right>
                 <MDBNavItem>
-                  <MDBNavLink active to="./products">
+                  <MDBNavLink shortcut topLevel active to="./products">
                     מוצרים
                   </MDBNavLink>
+                </MDBNavItem>
+              </MDBNavbarNav>
+              <MDBNavbarNav left>
+                <MDBNavItem>
+                  <MDBNavLink className="waves-effect waves-light" to="#!">
+                    <MDBIcon fab icon="twitter" />
+                  </MDBNavLink>
+                </MDBNavItem>
+                <MDBNavItem>
+                  <MDBNavLink className="waves-effect waves-light" to="#!">
+                    <MDBIcon fab icon="google-plus-g" />
+                  </MDBNavLink>
+                </MDBNavItem>
+                <MDBNavItem>
+                  <MDBDropdown>
+                    <MDBDropdownToggle nav caret>
+                      <MDBIcon icon="user" />
+                    </MDBDropdownToggle>
+                    <MDBDropdownMenu className="dropdown-default">
+                      <MDBDropdownItem href="/signin">כניסה</MDBDropdownItem>
+                    </MDBDropdownMenu>
+                  </MDBDropdown>
                 </MDBNavItem>
               </MDBNavbarNav>
             </MDBCollapse>

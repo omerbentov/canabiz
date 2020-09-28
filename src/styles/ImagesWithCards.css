@@ -3,15 +3,14 @@
   background-position: top;
   background-repeat: repeat;
   background-size: auto; */
-  background-color: #c8e6c9;
+  /* background-color: #c8e6c9; */
+  background-color: white;
 }
 
 #head {
   width: 100%;
   background-color: white;
   height: fit-content;
-  border: black;
-  border-width: 1px;
 }
 
 #filter {
@@ -22,13 +21,6 @@
   margin: auto;
   padding-top: 15px;
   padding-bottom: 15px;
-  /* margin-bottom: 50px; */
-}
-
-#allFiltersButtons {
-  width: fit-content;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 #products {
@@ -37,6 +29,8 @@
 }
 
 #singleCard {
+  width: 80%;
+  height: 60%;
   max-width: 350px;
   max-height: fit-content;
   margin-top: 10px;

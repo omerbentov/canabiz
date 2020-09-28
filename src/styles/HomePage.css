@@ -8,7 +8,7 @@ div {
   background-repeat: no-repeat;
   background-size: 100% 100%;
 
-  height: 1000px;
+  height: 850px;
 }
 
 #first h1,
@@ -19,10 +19,10 @@ hr {
 
 #welcom {
   position: relative;
-  top: 300px;
-  right: 100px;
-  width: 600px;
-  height: 800px;
+  top: 30%;
+  right: 10%;
+  width: 60%;
+  height: 80%;
 }
 
 #second {
@@ -43,9 +43,9 @@ hr {
 #whoRwe {
   position: relative;
   top: 200px;
-  right: 1000px;
-  width: 600px;
-  height: 800px;
+  right: 65%;
+  width: 35%;
+  height: cover;
 }
 
 #third {
@@ -76,4 +76,21 @@ hr {
   right: 100px;
   width: 600px;
   height: 800px;
+}
+
+.react-rotating-text-cursor {
+  animation: blinking-cursor 0.8s cubic-bezier(0.68, 0.01, 0.01, 0.99) 0s
+    infinite;
+}
+
+@keyframes blinking-cursor {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
