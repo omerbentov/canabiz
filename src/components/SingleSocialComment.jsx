@@ -45,12 +45,9 @@ class SingleSocialComment extends Component {
           </div>
           <div className="excerpt">
             <div style={{ marginBottom: 20 }}>
-              <MDBRow>
-                <a href="#!" className="name">
-                  User id : {this.props.user_id}
-                </a>{" "}
-              </MDBRow>
-              {/* <MDBCardTitle className="date">{this.props.title}</MDBCardTitle> */}
+              <MDBCardTitle className="date">
+                {this.props.user_name}
+              </MDBCardTitle>
               {this.props.message}
             </div>
             <div id="scores">

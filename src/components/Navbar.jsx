@@ -26,6 +26,19 @@ class NavbarPage extends Component {
   };
 
   render() {
+    let navItem = (
+      <MDBDropdownMenu className="dropdown-default">
+        <MDBDropdownItem href="/signin">כניסה</MDBDropdownItem>
+      </MDBDropdownMenu>
+    );
+    if (this.props.name) {
+      navItem = (
+        <MDBDropdownMenu className="dropdown-default">
+          <MDBDropdownItem>{this.props.name}</MDBDropdownItem>
+        </MDBDropdownMenu>
+      );
+    }
+
     return (
       <Router>
         <div id="backgroung">
@@ -59,7 +72,27 @@ class NavbarPage extends Component {
                       <MDBIcon icon="user" />
                     </MDBDropdownToggle>
                     <MDBDropdownMenu className="dropdown-default">
-                      <MDBDropdownItem href="/signin">כניסה</MDBDropdownItem>
+                      {!this.props.name && (
+                        <React.Fragment>
+                          <MDBDropdownItem href="/signin">
+                            כניסה
+                          </MDBDropdownItem>
+                          <MDBDropdownItem href="/signup">
+                            הרשמה
+                          </MDBDropdownItem>
+                        </React.Fragment>
+                      )}
+
+                      {this.props.name && (
+                        <React.Fragment>
+                          <MDBDropdownItem href="/myProfile">
+                            שלום {this.props.name}
+                          </MDBDropdownItem>
+                          <MDBDropdownItem href="/logout">
+                            התנתקות
+                          </MDBDropdownItem>
+                        </React.Fragment>
+                      )}
                     </MDBDropdownMenu>
                   </MDBDropdown>
                 </MDBNavItem>

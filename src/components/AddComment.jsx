@@ -16,20 +16,18 @@ import {
 class AddComment extends React.Component {
   state = {
     comment: {
-      title: "",
+      user_name: "",
       message: "",
     },
     score: [],
   };
 
   postComment = async () => {
-    console.log("in");
     const res = await axios.post(
       "http://localhost:3000/comments",
       this.comment
     );
 
-    console.log(res);
     this.state = { ...res };
   };
 
@@ -37,14 +35,18 @@ class AddComment extends React.Component {
     e.preventDefault();
 
     let errorMessage;
-    if (this.state.comment.message == "") {
-      alert("אנא הזן תגובה  :) ");
+    if (
+      this.state.comment.message == "" ||
+      this.state.comment.user_name == ""
+    ) {
+      alert("אנא הזן תגובה ושם משתמש  :) ");
     } else {
       const { addComment } = this.props;
       addComment({
         _id: null,
         product_id: this.props.product_id,
         user_id: 2,
+        user_name: this.state.comment.user_name,
         message: this.state.comment.message,
         score: this.state.score,
         date: "Added just now...",
@@ -54,12 +56,13 @@ class AddComment extends React.Component {
         const response = await axios.post("http://localhost:3000/comments", {
           product_id: this.props.product_id,
           user_id: 2,
+          user_name: this.state.comment.user_name,
           message: this.state.comment.message,
           score: this.state.score,
         });
 
         // reset
-        this.state.comment.title = "";
+        this.state.comment.user_name = "";
         this.state.comment.message = "";
         this.state.score = [];
         alert(response.data);
@@ -107,18 +110,18 @@ class AddComment extends React.Component {
             <h4 className=" position-relative text-center black-text">
               הוסף תגובה
             </h4>
-            {/* <MDBRow className="ml-3">
-            <MDBInput
-              size="lg"
-              background
-              label="כותרת"
-              type="text"
-              ref={this.title}
-              name="title"
-              value={this.state.comment.title}
-              onChange={this.handleTextChange}
-            ></MDBInput>
-          </MDBRow> */}
+            <MDBRow className="ml-3">
+              <MDBInput
+                size="lg"
+                background
+                label="שם משתמש"
+                type="text"
+                ref={this.title}
+                name="user_name"
+                value={this.state.comment.user_name}
+                onChange={this.handleTextChange}
+              ></MDBInput>
+            </MDBRow>
             <MDBRow>
               <div style={{ width: "90%" }}>
                 <MDBInput
