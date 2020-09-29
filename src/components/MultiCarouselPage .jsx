@@ -57,17 +57,22 @@ class MultiCarouselPage extends Component {
                                   className="img-fluid"
                                   src={singleProduct.BoxImg}
                                 />
-                                <MDBCardBody>
-                                  <MDBCardTitle>
-                                    {singleProduct.name}
-                                  </MDBCardTitle>
-                                  <MDBCardText>
-                                    Some quick example text to build on the card
-                                    title and make up the bulk of the card's
-                                    content.
-                                  </MDBCardText>
-                                  <MDBBtn color="white">MDBBtn</MDBBtn>
-                                </MDBCardBody>
+                                <div style={{ backgroundColor: "whitesmoke" }}>
+                                  <MDBCardBody>
+                                    <MDBCardTitle>
+                                      {singleProduct.name}
+                                    </MDBCardTitle>
+                                    <MDBCardText>
+                                      {singleProduct.productDescription}
+                                    </MDBCardText>
+                                    <MDBBtn
+                                      color="white"
+                                      href={"/product/" + singleProduct._id}
+                                    >
+                                      לצפייה
+                                    </MDBBtn>
+                                  </MDBCardBody>
+                                </div>
                               </MDBCard>
                             </div>
                           </MDBCol>

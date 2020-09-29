@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import httpService from "../services/httpService";
 import _ from "lodash";
+import "../styles/AddComment.css";
 
 import {
   MDBBtn,
@@ -133,7 +134,7 @@ class AddComment extends React.Component {
     console.log(this.state.comment.user_name);
 
     return (
-      <div style={{ Width: "70%", maxHeight: "30%", paddingRight: 5 }}>
+      <div style={{ Width: "fit-content", maxHeight: "30%", paddingRight: 5 }}>
         <MDBCard className="mt-5">
           <div
             style={{
@@ -186,43 +187,47 @@ class AddComment extends React.Component {
             <MDBRow>
               {_.chunk(this.props.commentsCategories, 5).map(
                 (categories, index) => (
-                  <MDBCol size="lg">
-                    {categories.map((category, index) => (
-                      <MDBRow key={index}>
-                        <h4 style>{category}</h4>
-                        <MDBRating
-                          iconSize="1x"
-                          key={index * 100}
-                          fillColors={[
-                            "red-text",
-                            "orange-text",
-                            "yellow-text",
-                            "lime-text",
-                            "light-green-text",
-                          ]}
-                          data={[
-                            {
-                              tooltip: category,
-                            },
-                            {
-                              tooltip: category,
-                            },
-                            {
-                              tooltip: category,
-                            },
-                            {
-                              tooltip: category,
-                            },
-                            {
-                              tooltip: category,
-                            },
-                          ]}
-                          getValue={this.handleRateChange.bind(category)}
-                          name={category}
-                        />
-                      </MDBRow>
-                    ))}
-                  </MDBCol>
+                  <div id="col">
+                    <MDBCol size="xl">
+                      {categories.map((category, index) => (
+                        <MDBRow key={index}>
+                          <MDBCol>
+                            <h4>{category}</h4>
+                          </MDBCol>
+                          <MDBRating
+                            iconSize="1x"
+                            key={index * 100}
+                            fillColors={[
+                              "red-text",
+                              "orange-text",
+                              "yellow-text",
+                              "lime-text",
+                              "light-green-text",
+                            ]}
+                            data={[
+                              {
+                                tooltip: category,
+                              },
+                              {
+                                tooltip: category,
+                              },
+                              {
+                                tooltip: category,
+                              },
+                              {
+                                tooltip: category,
+                              },
+                              {
+                                tooltip: category,
+                              },
+                            ]}
+                            getValue={this.handleRateChange.bind(category)}
+                            name={category}
+                          />
+                        </MDBRow>
+                      ))}
+                    </MDBCol>
+                  </div>
                 )
               )}
             </MDBRow>

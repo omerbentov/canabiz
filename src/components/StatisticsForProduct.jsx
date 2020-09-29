@@ -84,44 +84,48 @@ class StatisticsForProducts extends Component {
             }}
           >
             <MDBRow>
-              <h1 className=" position-relative text-center black-text">
-                סטטיסטיקות
-              </h1>
+              <div style={{ margin: "auto", width: "fit-content" }}>
+                <h1 className=" position-relative text-center black-text">
+                  סטטיסטיקות
+                </h1>
+              </div>
             </MDBRow>
             <MDBRow>
-              {this.state.statistics
-                .sort((a, b) => a.value >= b.value)
-                .map((rate, index) => (
-                  <div
-                    className="ml-5"
-                    key={index}
-                    style={{ marginBottom: 10, padding: 20 }}
-                  >
-                    <MDBCol>
-                      <MDBRow center>
-                        <h3>
-                          {rate.title} :{round((rate.value / 5) * 100, 2)}%{" "}
-                        </h3>
-                      </MDBRow>
-                      <MDBRow center>
-                        <h4>מס מדרגים : {rate.counter}</h4>
-                      </MDBRow>
-                      <ProgressBar
-                        radius={50}
-                        progress={rate.value}
-                        steps={5}
-                        strokeWidth={4}
-                        strokeColor={this.getProgressBarColor(rate.value)}
-                        trackStrokeWidth={4}
-                        pointerRadius={8}
-                        pointerStrokeWidth={5}
-                        pointerStrokeColor="black"
-                        initialAnimationDelay={500}
-                        initialAnimation={true}
-                      ></ProgressBar>
-                    </MDBCol>
-                  </div>
-                ))}
+              {_.chunk(this.state.statistics, 4).map((fourRates, index) => (
+                <MDBRow id="index">
+                  {fourRates.map((rate, index) => (
+                    <div
+                      className="ml-5"
+                      key={index}
+                      style={{ marginBottom: 10, padding: 20 }}
+                    >
+                      <MDBCol>
+                        <MDBRow center>
+                          <h3>
+                            {rate.title} :{round((rate.value / 5) * 100, 2)}%{" "}
+                          </h3>
+                        </MDBRow>
+                        <MDBRow center>
+                          <h4>מס מדרגים : {rate.counter}</h4>
+                        </MDBRow>
+                        <ProgressBar
+                          radius={50}
+                          progress={rate.value}
+                          steps={5}
+                          strokeWidth={4}
+                          strokeColor={this.getProgressBarColor(rate.value)}
+                          trackStrokeWidth={4}
+                          pointerRadius={8}
+                          pointerStrokeWidth={5}
+                          pointerStrokeColor="black"
+                          initialAnimationDelay={500}
+                          initialAnimation={true}
+                        ></ProgressBar>
+                      </MDBCol>
+                    </div>
+                  ))}
+                </MDBRow>
+              ))}
             </MDBRow>
           </div>
         </MDBCard>

@@ -3,11 +3,11 @@ div {
 }
 
 #first {
-  /* background-image: url("https://i.imgur.com/cf2VPpa.jpg?1");
+  background-image: url("https://i.imgur.com/cf2VPpa.jpg?1");
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 100% 100%; */
-  background-color: whitesmoke;
+  background-size: 100% 100%;
+  /* background-color: whitesmoke; */
 
   height: 850px;
 }
@@ -44,7 +44,7 @@ hr {
 #whoRwe {
   position: relative;
   top: 200px;
-  right: 65%;
+  right: 60%;
   width: 35%;
   height: cover;
 }

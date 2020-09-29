@@ -19,7 +19,6 @@ class AppPage extends React.Component {
   render() {
     return (
       <body>
-        {/* {!localStorage.getItem("token") && ( */}
         <div id="first">
           <div id="welcom" style={{ fontSize: 30, fontFamily: "Alef Hebrew" }}>
             <Typist>
@@ -59,8 +58,8 @@ class AppPage extends React.Component {
             </MDBAnimation>
           </div>
         </div>
-        )}
-        <div id="second">
+        )
+        {/* <div id="second">
           <ScrollAnimation animateIn="bounceInLeft" animateOut="fadOut">
             <div id="whoRwe">
               <h1>מי אנחנו?</h1>
@@ -70,7 +69,7 @@ class AppPage extends React.Component {
               </h2>
             </div>
           </ScrollAnimation>
-        </div>
+        </div> */}
         <div dir="ltr" id="third">
           <ScrollAnimation delay={500} animateIn="tada" initiallyVisible={true}>
             <div style={{ margin: "auto", width: "20%" }}>
