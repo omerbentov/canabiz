@@ -29,7 +29,6 @@ class MultiCarouselPage extends Component {
   };
 
   render() {
-    console.log(this.state.someProducts);
     return (
       <div>
         <MDBContainer>

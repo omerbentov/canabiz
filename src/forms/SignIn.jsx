@@ -21,12 +21,9 @@ class LogIn extends Component {
         email: this.state.account.email,
         password: this.state.account.password,
       });
-
-      //save and alert
       if (jwt) {
-        alert("Logged in... token:" + jwt);
+        alert("Logged in...");
         localStorage.setItem("token", jwt);
-        console.log(this.props);
         window.location.href = "/";
       }
     } catch (ex) {
