@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ImagesWithCards from "../components/ImagesWithCards";
-import axios from "axios";
+import httpService from "../services/httpService";
 
 class ProductsPage extends Component {
   state = {
@@ -8,8 +8,7 @@ class ProductsPage extends Component {
   };
 
   getComments = async (product_id) => {
-    var url = `http://localhost:3000/comments/byProduct/${product_id}`;
-    const comments = await axios.get(url);
+    const comments = await httpService.getCommentsByID(product_id);
     await this.setState({ comments: comments.data, fetch: false });
   };
 

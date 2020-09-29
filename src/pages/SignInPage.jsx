@@ -1,5 +1,5 @@
 import React from "react";
-import { MDBMask, MDBRow, MDBView, MDBContainer } from "mdbreact";
+import { MDBRow, MDBView, MDBContainer } from "mdbreact";
 import "../styles/HomePage.css";
 import LogIn from "../forms/SignIn";
 

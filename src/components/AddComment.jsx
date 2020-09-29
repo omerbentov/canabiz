@@ -1,6 +1,8 @@
 import React from "react";
 import axios from "axios";
+import httpService from "../services/httpService";
 import _ from "lodash";
+
 import {
   MDBBtn,
   MDBContainer,
@@ -12,14 +14,20 @@ import {
   MDBCol,
   MDBCardTitle,
 } from "mdbreact";
+import jwtService from "../services/jwtService";
 
 class AddComment extends React.Component {
   state = {
+    logged: false,
     comment: {
       user_name: "",
       message: "",
     },
     score: [],
+  };
+
+  componentDidMount = () => {
+    this.setUserNameIfExists();
   };
 
   postComment = async () => {
@@ -29,6 +37,28 @@ class AddComment extends React.Component {
     );
 
     this.state = { ...res };
+  };
+
+  getUserIdIfExists = () => {
+    try {
+      let currID = jwtService.getCurrUser()._id;
+      if (currID) return currID;
+      else {
+        // guest id = 2
+        return 2;
+      }
+    } catch (ex) {}
+  };
+
+  setUserNameIfExists = () => {
+    try {
+      let currName = jwtService.getCurrUser().name;
+      if (currName) {
+        let tempComment = this.state.comment;
+        tempComment.user_name = currName;
+        this.setState({ comment: tempComment, logged: true });
+      }
+    } catch (ex) {}
   };
 
   handleSubmit = async (e) => {
@@ -42,10 +72,11 @@ class AddComment extends React.Component {
       alert("אנא הזן תגובה ושם משתמש  :) ");
     } else {
       const { addComment } = this.props;
+
       addComment({
         _id: null,
         product_id: this.props.product_id,
-        user_id: 2,
+        user_id: this.getUserIdIfExists(),
         user_name: this.state.comment.user_name,
         message: this.state.comment.message,
         score: this.state.score,
@@ -53,12 +84,14 @@ class AddComment extends React.Component {
       });
 
       try {
-        const response = await axios.post("http://localhost:3000/comments", {
+        console.log(this.props);
+        const response = await httpService.addComment({
           product_id: this.props.product_id,
-          user_id: 2,
+          user_id: this.getUserIdIfExists(),
           user_name: this.state.comment.user_name,
           message: this.state.comment.message,
           score: this.state.score,
+          date: "Added just now...",
         });
 
         // reset
@@ -97,8 +130,10 @@ class AddComment extends React.Component {
   };
 
   render() {
+    console.log(this.state.comment.user_name);
+
     return (
-      <div style={{ maxWidth: "70%", maxHeight: "30%", paddingRight: 5 }}>
+      <div style={{ Width: "70%", maxHeight: "30%", paddingRight: 5 }}>
         <MDBCard className="mt-5">
           <div
             style={{
@@ -111,16 +146,30 @@ class AddComment extends React.Component {
               הוסף תגובה
             </h4>
             <MDBRow className="ml-3">
-              <MDBInput
-                size="lg"
-                background
-                label="שם משתמש"
-                type="text"
-                ref={this.title}
-                name="user_name"
-                value={this.state.comment.user_name}
-                onChange={this.handleTextChange}
-              ></MDBInput>
+              {this.state.logged && (
+                <MDBInput
+                  dir="rtl"
+                  size="lg"
+                  background
+                  label="שם משתמש"
+                  type="text"
+                  name="user_name"
+                  value={this.state.comment.user_name}
+                  disabled
+                  onChange={this.handleTextChange}
+                ></MDBInput>
+              )}
+              {!this.state.logged && (
+                <MDBInput
+                  size="lg"
+                  background
+                  label="שם משתמש"
+                  type="text"
+                  name="user_name"
+                  value={this.state.comment.user_name}
+                  onChange={this.handleTextChange}
+                ></MDBInput>
+              )}
             </MDBRow>
             <MDBRow>
               <div style={{ width: "90%" }}>
@@ -128,7 +177,6 @@ class AddComment extends React.Component {
                   background
                   label="תגובה"
                   type="textarea"
-                  ref={this.title}
                   name="message"
                   value={this.state.comment.message}
                   onChange={this.handleTextChange}
@@ -141,7 +189,7 @@ class AddComment extends React.Component {
                   <MDBCol size="lg">
                     {categories.map((category, index) => (
                       <MDBRow key={index}>
-                        <h6>{category}</h6>
+                        <h4 style>{category}</h4>
                         <MDBRating
                           iconSize="1x"
                           key={index * 100}

@@ -1,5 +1,4 @@
 import React, { Component, useState } from "react";
-import axios from "axios";
 import _ from "lodash";
 import {
   MDBBtn,
@@ -16,7 +15,7 @@ import {
 import "../styles/ImagesWithCards.css";
 import MultiSelect from "react-multiple-select-dropdown-lite";
 import "react-multiple-select-dropdown-lite/dist/index.css";
-import { Autoplay } from "swiper";
+import httpService from "../services/httpService";
 
 class CardExample extends Component {
   state = {
@@ -47,13 +46,13 @@ class CardExample extends Component {
   };
 
   async componentDidMount() {
-    const allProducts = await axios.get("http://localhost:3000/products/all");
+    const allProducts = await httpService.getAllProducts();
     await this.setState({
       allProducts: allProducts.data,
       products: allProducts.data,
     });
 
-    const allCompenies = await axios.get("http://localhost:3000/compenies");
+    const allCompenies = await httpService.getAllCompenies();
     allCompenies.data.forEach((company) => {
       this.state.options.companies.push({
         label: company.name,
@@ -132,6 +131,9 @@ class CardExample extends Component {
           </div>
         </div>
         <div id="main">
+          <div style={{ margin: "auto", width: "fit-content", paddingTop: 20 }}>
+            <h1>מוצרים</h1>
+          </div>
           <div id="products">
             <MDBTable>
               <MDBRow>
@@ -143,26 +145,34 @@ class CardExample extends Component {
                           className="img-fluid"
                           src={product.BoxImg}
                         />
-                        <MDBCardBody cascade>
-                          <MDBCardTitle>
-                            {product.name} : ({product.company})
-                          </MDBCardTitle>
-                          <MDBCardTitle>
-                            {" "}
-                            {product.ish} T{product.thc}\C
-                            {product.cbd}
-                          </MDBCardTitle>
-                          <MDBCardText id="description">
-                            {product.productDescription}
-                          </MDBCardText>
-                          <MDBBtn
-                            color="white"
-                            id="btn"
-                            href={"/product/" + product._id}
-                          >
-                            לצפייה
-                          </MDBBtn>
-                        </MDBCardBody>
+                        <div
+                          style={{
+                            width: "100%",
+                            backgroundColor: "whitesmoke",
+                          }}
+                        >
+                          <MDBCardBody cascade>
+                            <MDBCardTitle>
+                              {product.name} : ({product.company})
+                            </MDBCardTitle>
+
+                            <MDBCardTitle>
+                              {" "}
+                              {product.ish} T{product.thc}\C
+                              {product.cbd}
+                            </MDBCardTitle>
+                            <MDBCardText id="description">
+                              {product.productDescription}
+                            </MDBCardText>
+                            <MDBBtn
+                              color="white"
+                              id="btn"
+                              href={"/product/" + product._id}
+                            >
+                              לצפייה
+                            </MDBBtn>
+                          </MDBCardBody>
+                        </div>
                       </MDBCard>
                     </div>
                   </MDBCol>

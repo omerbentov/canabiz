@@ -19,6 +19,7 @@ class AppPage extends React.Component {
   render() {
     return (
       <body>
+        {/* {!localStorage.getItem("token") && ( */}
         <div id="first">
           <div id="welcom" style={{ fontSize: 30, fontFamily: "Alef Hebrew" }}>
             <Typist>
@@ -58,6 +59,7 @@ class AppPage extends React.Component {
             </MDBAnimation>
           </div>
         </div>
+        )}
         <div id="second">
           <ScrollAnimation animateIn="bounceInLeft" animateOut="fadOut">
             <div id="whoRwe">

@@ -1,12 +1,10 @@
 import React, { Component } from "react";
-import { MDBContainer as div } from "mdbreact";
 import "./index.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import { Route, Switch, Redirect } from "react-router-dom";
 import NotFound from "./pages/NotFoundPage";
-import jwtDecode from "jwt-decode";
-import axios from "axios";
+import jwtService from "./services/jwtService";
 
 // pages
 import ProductsPage from "./pages/ProductsPage";
@@ -24,8 +22,7 @@ class App extends Component {
 
   componentDidMount() {
     try {
-      let jwt = localStorage.getItem("token");
-      const user = jwtDecode(jwt);
+      const user = jwtService.getCurrUser();
       this.setState({ user });
     } catch (ex) {}
   }

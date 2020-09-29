@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+import authService from "../services/authService";
 
 class LogIn extends Component {
   constructor(props) {
@@ -17,13 +17,12 @@ class LogIn extends Component {
     e.preventDefault();
 
     try {
-      const { data: jwt } = await axios.post("http://localhost:3000/auth", {
-        email: this.state.account.email,
-        password: this.state.account.password,
-      });
-      if (jwt) {
+      var isSigned = await authService.signIn(
+        this.state.account.email,
+        this.state.account.password
+      );
+      if (isSigned) {
         alert("Logged in...");
-        localStorage.setItem("token", jwt);
         window.location.href = "/";
       }
     } catch (ex) {

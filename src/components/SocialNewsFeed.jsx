@@ -1,8 +1,8 @@
 import React from "react";
-import { MDBRow, MDBCard, MDBCardBody } from "mdbreact";
+import { MDBRow, MDBCardBody } from "mdbreact";
 import SingleSocialComment from "./SingleSocialComment";
-import axios from "axios";
 import AddComment from "./AddComment";
+import httpService from "../services/httpService";
 
 class SocialNewsFeed extends React.Component {
   constructor(props) {
@@ -12,8 +12,7 @@ class SocialNewsFeed extends React.Component {
   }
 
   getComments = async (product_id) => {
-    var url = `http://localhost:3000/comments/byProduct/${product_id}`;
-    const comments = await axios.get(url);
+    const comments = await httpService.getCommentsByID(product_id);
     await this.setState({ comments: comments.data, fetch: false });
   };
 

@@ -13,8 +13,8 @@ import {
   MDBCardText,
   MDBBtn,
 } from "mdbreact";
-import axios from "axios";
 import _ from "lodash";
+import httpService from "../services/httpService";
 
 class MultiCarouselPage extends Component {
   state = {
@@ -22,7 +22,7 @@ class MultiCarouselPage extends Component {
   };
 
   componentDidMount = async () => {
-    const allProducts = await axios.get("http://localhost:3000/products/all");
+    const allProducts = await httpService.getAllProducts();
     await this.setState({
       someProducts: _.chunk(allProducts.data, 3),
     });

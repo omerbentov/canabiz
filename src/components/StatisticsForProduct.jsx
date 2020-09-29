@@ -1,19 +1,8 @@
 import React, { Component } from "react";
-import {
-  MDBBtn,
-  MDBCard,
-  MDBCardBody,
-  MDBCardImage,
-  MDBCardTitle,
-  MDBCardText,
-  MDBRow,
-  MDBCol,
-  MDBTable,
-  MDBRating,
-} from "mdbreact";
-import axios from "axios";
+import { MDBCard, MDBRow, MDBCol, MDBSimpleChart, MDBIcon } from "mdbreact";
 import _, { round } from "lodash";
 import ProgressBar from "react-customizable-progressbar";
+import httpService from "../services/httpService";
 
 class StatisticsForProducts extends Component {
   state = {
@@ -25,8 +14,7 @@ class StatisticsForProducts extends Component {
 
   getStatistics = async (product_id) => {
     // fetch comments
-    var url = `http://localhost:3000/comments/byProduct/${product_id}`;
-    const comments = await axios.get(url);
+    const comments = await httpService.getCommentsByID(product_id);
     await this.setState({ comments: comments.data, fetch: false });
 
     // creating only score array
@@ -77,6 +65,7 @@ class StatisticsForProducts extends Component {
       this.getStatistics(this.props.product_id);
     }
 
+    console.log(this.state.statistics);
     return (
       <div
         style={{
@@ -103,7 +92,11 @@ class StatisticsForProducts extends Component {
               {this.state.statistics
                 .sort((a, b) => a.value >= b.value)
                 .map((rate, index) => (
-                  <div className="ml-5" key={index}>
+                  <div
+                    className="ml-5"
+                    key={index}
+                    style={{ marginBottom: 10, padding: 20 }}
+                  >
                     <MDBCol>
                       <MDBRow center>
                         <h3>
@@ -111,7 +104,7 @@ class StatisticsForProducts extends Component {
                         </h3>
                       </MDBRow>
                       <MDBRow center>
-                        <h4>מס מדרגים : {this.state.statistics.length}</h4>
+                        <h4>מס מדרגים : {rate.counter}</h4>
                       </MDBRow>
                       <ProgressBar
                         radius={50}

@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import axios from "axios";
 import ProductView from "../components/ProductView";
 import SocialNewsFeed from "../components/SocialNewsFeed";
 import "../styles/ProductPage.css";
-import AddComment from "./../components/AddComment";
 import StatisticsForProducts from "./../components/StatisticsForProduct";
+import httpService from "../services/httpService";
 
 class ProductPage extends Component {
   state = {
@@ -34,10 +33,9 @@ class ProductPage extends Component {
   };
 
   async componentDidMount() {
-    const product = await axios.get(
-      `http://localhost:3000/products/${this.props.match.params.id}`
+    const product = await httpService.getProductByID(
+      this.props.match.params.id
     );
-
     await this.setState({ product: product.data[0] });
   }
 

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+import authService from "../services/authService";
 
 class Register extends Component {
   constructor(props) {
@@ -16,24 +16,17 @@ class Register extends Component {
   };
 
   handleSubmit = async (e) => {
-    console.log(this);
     e.preventDefault();
-
     try {
-      const newUser = await axios.post("http://localhost:3000/users", {
-        name: this.state.account.firstName,
-        email: this.state.account.email,
-        password: this.state.account.password,
-        phone: this.state.account.phone,
-      });
+      var isSigned = await authService.signUp(
+        this.state.account.firstName,
+        this.state.account.email,
+        this.state.account.password,
+        this.state.account.phone
+      );
 
-      console.log(newUser);
-
-      //save and alert
-      this.state.newUser = newUser.data;
-      if (newUser.data) {
+      if (isSigned) {
         alert("Signed Up :)");
-        localStorage.setItem("token", newUser.headers["x-auth-token"]);
         window.location.href = "/";
       }
     } catch (e) {
